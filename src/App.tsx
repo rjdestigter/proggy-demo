@@ -1,26 +1,83 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import './App.css'
+import listOfTodos from './apps/todos'
+import store from './core/store'
+import { Provider } from 'react-redux'
 
-const App: React.FC = () => {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const styleShow = {
+    border: '1px solid #fafafa',
+    padding: 3,
+    cursor: 'pointer',
 }
 
-export default App;
+const Show = (props: { children: React.ReactNode }) => {
+    const [toggled, toggle] = React.useState(true)
+
+    return (
+        <div style={styleShow} onClick={() => toggle(!toggled)}>
+            {toggled ? props.children : '...'}
+        </div>
+    )
+}
+
+const ListOfTodos1 = listOfTodos(0)
+const ListOfTodos2 = listOfTodos(0)
+const ListOfTodos3 = listOfTodos(0)
+const ListOfTodos4 = listOfTodos(0)
+
+const App: React.FC = () => {
+    return (
+        <div className="App">
+            <header className="App-header">
+                <Provider store={store}>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                        <Show>
+                            <ListOfTodos3 />
+                        </Show>
+                        <Show>
+                            <ListOfTodos4 />
+                        </Show>
+                        <Show>
+                            <ListOfTodos1 />
+                        </Show>
+                        <Show>
+                            <ListOfTodos2 />
+                        </Show>
+                    </div>
+                    <br />
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                        <Show>
+                            <ListOfTodos1 />
+                        </Show>
+                        <Show>
+                            <ListOfTodos2 />
+                        </Show>
+                        <Show>
+                            <ListOfTodos3 />
+                        </Show>
+                        <Show>
+                            <ListOfTodos4 />
+                        </Show>
+                    </div>
+                    <br />
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                        <Show>
+                            <ListOfTodos3 />
+                        </Show>
+                        <Show>
+                            <ListOfTodos4 />
+                        </Show>
+                        <Show>
+                            <ListOfTodos1 />
+                        </Show>
+                        <Show>
+                            <ListOfTodos2 />
+                        </Show>
+                    </div>
+                </Provider>
+            </header>
+        </div>
+    )
+}
+
+export default App
